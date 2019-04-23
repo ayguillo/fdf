@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/19 15:39:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/23 13:29:12 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,7 @@
 #include "../libft/libft.h"
 #include <fcntl.h>
 
-void	ft_fill_pixel(char *buff, int x, int y, int color, int bpp,
-		int size_line)
-{
-	char	*castcolor;
-	int		bp;
-
-	bp = bpp / 8;
-	castcolor = (char *)&color;
-	buff[(x*bp) + (y*size_line)] = castcolor[0];
-	buff[(x*bp) + (y*size_line) + 1] = castcolor[1];
-	buff[(x*bp) + (y*size_line) + 2] = castcolor[2];
-	buff[(x*bp) + (y*size_line) + 3] = castcolor[3];
-}
-
-int		quit(int key, t_all *all)
+int				quit(int key, t_all *all)
 {
 	if (key == 53)
 	{
@@ -40,7 +26,7 @@ int		quit(int key, t_all *all)
 	return (0);
 }
 
-void	init(t_all *all)
+void			init(t_all *all)
 {
 	all->mlx_ptr = NULL;
 	all->win_ptr = NULL;
@@ -54,13 +40,40 @@ void	init(t_all *all)
 	all->height = 1;
 	all->depth = 0;
 	all->map = NULL;
+	all->distance = 0;
 }
 
-int		main(int ac, char **av)
+static void		presentation(t_all *all, char *name)
 {
-	t_all	all;
 	int		x;
 	int		y;
+	char	*chr;
+
+	ft_strchr(name, '/') == 0 ? chr = name : (chr = (ft_strchr(name, '/') + 1));
+	all->mlx_ptr = mlx_init();
+	all->win_ptr = mlx_new_window(all->mlx_ptr, 1500, 1500, "fdf");
+	ft_printmap(all->map, all->height, all->width);
+	ft_printf("height = %i & width = %i && depth = %i\n", all->height
+			, all->width, all->depth);
+	all->img_ptr = mlx_new_image(all->mlx_ptr, 1500, 50);
+	all->buff = mlx_get_data_addr(all->img_ptr, &(all->bpp), &(all->size_line),
+			&(all->endian));
+	y = -1;
+	while (++y <= 49)
+	{
+		x = -1;
+		while (++x <= 1499)
+			ft_fill_pixel(all, x, y, 0x008080);
+	}
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 55, 0xFFFFFF
+			, "Press esc to quit");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, chr);
+}
+
+int				main(int ac, char **av)
+{
+	t_all	all;
 
 	init(&all);
 	if (ac != 2)
@@ -78,22 +91,7 @@ int		main(int ac, char **av)
 		ft_printf("Error\n");
 		return (-1);
 	}
-	all.mlx_ptr = mlx_init();
-	all.win_ptr = mlx_new_window(all.mlx_ptr, 1000, 1000, "fdf");
-	ft_printmap(all.map, all.height, all.width);
-	ft_printf("height = %i & width = %i && depth = %i\n", all.height, all.width, all.depth);
-	all.img_ptr = mlx_new_image(all.mlx_ptr, 500, 500);
-	all.buff = mlx_get_data_addr(all.img_ptr, &(all.bpp), &(all.size_line),
-			&(all.endian));
-	y = -1;
-	while (++y <= 49)
-	{
-		x = -1;
-		while (++x <= 49)
-			ft_fill_pixel(all.buff, x, y, 0xFFFFFF, all.bpp, all.size_line);
-	}
-	mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.img_ptr, 250, 250);
-	mlx_string_put(all.mlx_ptr, all.win_ptr, 0, 0, 0xFFFFFF, "Press esc to quit");
+	presentation(&all, av[1]);
 	mlx_key_hook(all.win_ptr, quit, (void *)&all);
 	mlx_loop(all.mlx_ptr);
 }
