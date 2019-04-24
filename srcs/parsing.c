@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/23 13:05:34 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:02:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ static int	**ft_createmap(int height, int width, t_all *all, char **split)
 	map = all->map;
 	if (!(cpy = ft_allocmap(cpy, height, width)))
 		return (NULL);
-	if (map != NULL)
-	{
-		y = -1;
-		while (++y < height - 1)
-		{
-			x = -1;
+	if (map != NULL && (y = -1))
+		while (++y < height - 1 && (x = -1))
 			while (++x < width)
 				cpy[y][x] = map[y][x];
-		}
-	}
 	x = -1;
 	while (++x < width)
 	{
@@ -66,7 +60,7 @@ static int	**ft_createmap(int height, int width, t_all *all, char **split)
 	return (cpy);
 }
 
-int		ft_parsing(int fd, t_all *all)
+int			ft_parsing(int fd, t_all *all)
 {
 	int		ret;
 	char	*line;
@@ -75,22 +69,18 @@ int		ft_parsing(int fd, t_all *all)
 	line = NULL;
 	ret = 1;
 	split = NULL;
-	while (ret >= 0)
+	while (ret >= 0 && ((ret = ft_gnl(fd, &line)) || ret == 0))
 	{
-		ret = ft_gnl(fd, &line);
-		if (ret == 0)
+		if (ret == 0 && ((all->height)--))
 		{
 			ft_strdel(&line);
-			(all->height)--;
 			return (1);
 		}
 		if (!(split = ft_strsplit(line, ' ')))
 			return (0);
-		if (!(all->width))
-			all->width = ft_raws_nbr(split);
-		if (ft_raws_nbr(split) != (all->width))
-			return (0);
-		if (!(all->map = ft_createmap(all->height, all->width, all, split)))
+		!all->width ? all->width = ft_raws_nbr(split) : 0;
+		if (ft_raws_nbr(split) != (all->width) || (!(all->map =
+						ft_createmap(all->height, all->width, all, split))))
 			return (0);
 		ft_free_tab2d(&split);
 		(all->height)++;

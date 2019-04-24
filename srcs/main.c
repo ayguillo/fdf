@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/23 13:29:12 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:02:01 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void			init(t_all *all)
 	all->mlx_ptr = NULL;
 	all->win_ptr = NULL;
 	all->img_ptr = NULL;
+	all->img_ptr2 = NULL;
 	all->buff = NULL;
+	all->buff2 = NULL;
 	all->bpp = 0;
 	all->size_line = 0;
 	all->endian = 0;
@@ -43,13 +45,22 @@ void			init(t_all *all)
 	all->distance = 0;
 }
 
-static void		presentation(t_all *all, char *name)
+static char		*ft_file(char *name)
+{
+	char	*chr;
+
+	if (!(ft_strchr(name, '/')))
+		chr = name;
+	else
+		chr = ft_strchr(name, '/') + 1;
+	return (chr);
+}
+
+static void		presentation(t_all *all, char *nm)
 {
 	int		x;
 	int		y;
-	char	*chr;
 
-	ft_strchr(name, '/') == 0 ? chr = name : (chr = (ft_strchr(name, '/') + 1));
 	all->mlx_ptr = mlx_init();
 	all->win_ptr = mlx_new_window(all->mlx_ptr, 1500, 1500, "fdf");
 	ft_printmap(all->map, all->height, all->width);
@@ -63,12 +74,12 @@ static void		presentation(t_all *all, char *name)
 	{
 		x = -1;
 		while (++x <= 1499)
-			ft_fill_pixel(all, x, y, 0x008080);
+			ft_fill_pixel(all, x, y, 0x008080, all->buff);
 	}
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 55, 0xFFFFFF
 			, "Press esc to quit");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, chr);
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, ft_file(nm));
 }
 
 int				main(int ac, char **av)
@@ -92,6 +103,7 @@ int				main(int ac, char **av)
 		return (-1);
 	}
 	presentation(&all, av[1]);
+	ft_grid(&all);
 	mlx_key_hook(all.win_ptr, quit, (void *)&all);
 	mlx_loop(all.mlx_ptr);
 }
