@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/23 18:02:01 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/25 11:50:42 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 #include "../includes/fdf.h"
 #include "../libft/libft.h"
 #include <fcntl.h>
-
-int				quit(int key, t_all *all)
-{
-	if (key == 53)
-	{
-		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-		exit(-1);
-	}
-	return (0);
-}
 
 void			init(t_all *all)
 {
@@ -103,7 +93,9 @@ int				main(int ac, char **av)
 		return (-1);
 	}
 	presentation(&all, av[1]);
-	ft_grid(&all);
+	all.max = all.height < all.width ? all.width : all.height;
+	mlx_mouse_hook(all.win_ptr, ft_zoom, (void*)&all);
 	mlx_key_hook(all.win_ptr, quit, (void *)&all);
+	ft_grid(&all);
 	mlx_loop(all.mlx_ptr);
 }
