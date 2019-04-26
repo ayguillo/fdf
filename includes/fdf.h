@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/25 12:01:47 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:16:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ typedef struct	s_bre
 	int		sy;
 }				t_bre;
 
-typedef struct	s_pos
+typedef struct	s_mtx
 {
-	int	rx;
-	int	ry;
-	int	rxfin;
-	int	ryfin;
-}				t_pos;
+	int	x;
+	int	y;
+}				t_mtx;
 
 int				ft_parsing(int fd, t_all *all);
 void			ft_freetab2i(int ***map, int height);
@@ -60,3 +58,7 @@ void			ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all);
 void			ft_grid(t_all *all);
 int				ft_zoom(int button, int x, int y, t_all *all);
 int				quit(int key, t_all *all);
+t_mtx			**alloc_matrix(int **map, t_all *all);
+t_mtx			**fill_matrix(int **map, t_all *all);
+t_mtx			**fill_real_matrix(int **map, t_all *all);
+void			ft_printmtx(t_mtx **mtx, t_all *all);

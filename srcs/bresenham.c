@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/25 15:13:27 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/26 16:01:55 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,49 +48,37 @@ void	ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 	}
 }
 
-void		iso(int *x, int *y, int z)
+void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 {
-	int	prevx;
-	int	prevy;
-
-	prevx = *x;
-	prevy = *y;
-	*x = (prevx - prevy) * cos(0.523599);
-	*y = (prevx + prevy) * sin(0.523599) - z;
+	ft_bresemham(mtx[y][0].x, mtx[y][0].y, mtx[y][x].x, mtx[y][x].y, all);
+	ft_bresemham(mtx[0][x].x, mtx[0][x].y, mtx[y][x].x, mtx[y][x].y, all);
 }
+
 
 void		ft_grid(t_all *all)
 {
 	int		x;
 	int		y;
-	t_pos	pos;
+	t_mtx	**mtx;
 
-	y = -1;
 	if (all->max != 0)
 		all->distance = SZI / all->max;
 	all->img_ptr2 = mlx_new_image(all->mlx_ptr, SZI, SZI);
 	all->buff2 = mlx_get_data_addr(all->img_ptr2, &(all->bpp),
 			&(all->size_line), &(all->endian));
-	pos.ry = 0;
-	pos.ryfin = all->distance;
-	pos.rx = 0;
-	while (++y < all->height && (x = -1))
+	mtx = fill_real_matrix(all->map, all);
+	y = -1;
+	while (++y < (all->height - 1) && (x = -1))
 	{
-		pos.rx = 0;
-		pos.rxfin = 0;
-		while (++x < all->width)
+		while (++x < all->width - 1)
 		{
-			pos.rxfin = pos.rx + all->distance;
-			ft_bresemham(pos.rx, pos.ry, pos.rx, pos.ryfin, all);
-			ft_bresemham(pos.rx, pos.ry, pos.rxfin, pos.ry, all);
-			pos.rx = pos.rxfin;
-			pos.rxfin += all->distance;
+			ft_bresemham(mtx[y][x].x, mtx[y][x].y, mtx[y + 1][x].x,
+					mtx[y + 1][x].y, all);
+			ft_bresemham(mtx[y][x].x, mtx[y][x].y, mtx[y][x + 1].x,
+					mtx[y][x + 1].y, all);
 		}
-		pos.ry = pos.ryfin;
-		pos.ryfin += all->distance;
 	}
-	ft_bresemham(pos.rx, 0, pos.rx, pos.ry, all);
-	ft_bresemham(0, pos.ry, pos.rx, pos.ry, all);
+	ft_last(all, mtx, x, y);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr,
 			all->img_ptr2, 200, 200);
 }
