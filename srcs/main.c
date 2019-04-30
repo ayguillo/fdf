@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/26 15:12:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:01:51 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void			init(t_all *all)
 	all->depth = 0;
 	all->map = NULL;
 	all->distance = 0;
+	all->thetax = 0.0;
+	all->thetay = 0.0;
+	all->thetaz = 0.0;
 }
 
 static char		*ft_file(char *name)
@@ -69,6 +72,12 @@ static void		presentation(t_all *all, char *nm)
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 55, 0xFFFFFF
 			, "Press esc to quit");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 60, 0x008080
+			, "Q & E : Rotate Z");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 80, 0x008080
+			, "W & S : Rotate X");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 100, 0x008080
+			, "A & D : Rotate y");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, ft_file(nm));
 }
 
@@ -93,7 +102,7 @@ int				main(int ac, char **av)
 		return (-1);
 	}
 	presentation(&all, av[1]);
-	all.max = all.height < all.width ? all.width : all.height;
+	all.max = all.height < all.width ? all.width * 2 : all.height * 2;
 	mlx_mouse_hook(all.win_ptr, ft_zoom, (void*)&all);
 	mlx_key_hook(all.win_ptr, quit, (void *)&all);
 	ft_grid(&all);

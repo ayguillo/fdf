@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/25 12:02:19 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:01:46 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ int				quit(int key, t_all *all)
 		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
 		exit(-1);
 	}
+	if (key == 1)
+		all->thetax += 0.087;
+	if (key == 13)
+		all->thetax -= 0.087;
+	if (key == 12)
+		all->thetaz += 0.087;
+	if (key == 14)
+		all->thetaz -= 0.087;
+	if (key == 2)
+		all->thetay += 0.087;
+	if (key == 0)
+		all->thetay -= 0.087;
+	ft_grid(all);
 	return (0);
 }
 

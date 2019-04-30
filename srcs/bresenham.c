@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/26 16:01:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:11:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 	bre.err = (bre.dx > bre.dy ? bre.dx : -(bre.dy)) / 2;
 	while (1)
 	{
-		if (xdeb < 0 || ydeb < 0 || xdeb >= SZI || ydeb >= SZI)
+		if (ydeb >= SZI || xdeb >= SZI)
+			break;
+		if (ydeb < 0 || xdeb < 0)
 			break;
 		ft_fill_pixel(all, xdeb, ydeb, 0xFFFFFF, buff);
 		if (ydeb == yfin && xdeb == xfin)
@@ -50,8 +52,17 @@ void	ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 
 void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 {
-	ft_bresemham(mtx[y][0].x, mtx[y][0].y, mtx[y][x].x, mtx[y][x].y, all);
-	ft_bresemham(mtx[0][x].x, mtx[0][x].y, mtx[y][x].x, mtx[y][x].y, all);
+	int px;
+	int py;
+
+	px = -1;
+	while (++px < x)
+		ft_bresemham(mtx[y][px].x, mtx[y][px].y, mtx[y][px + 1].x,
+				mtx[y][px + 1].y, all);
+	py = -1;
+	while (++py < y)
+		ft_bresemham(mtx[py][x].x, mtx[py][x].y, mtx[py + 1][x].x,
+				mtx[py + 1][x].y, all);
 }
 
 

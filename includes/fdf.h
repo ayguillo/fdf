@@ -6,11 +6,11 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/26 15:16:53 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:23:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define SZI 800
+#define SZI 1200
 
 typedef struct s_all
 {
@@ -20,6 +20,8 @@ typedef struct s_all
 	void	*img_ptr2;
 	char	*buff;
 	char	*buff2;
+	int		x;
+	int		y;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -31,6 +33,9 @@ typedef struct s_all
 	int		**map;
 	float	distance;
 	int		max;
+	float	thetax;
+	float	thetay;
+	float	thetaz;
 }				t_all;
 
 typedef struct	s_bre
@@ -47,6 +52,7 @@ typedef struct	s_mtx
 {
 	int	x;
 	int	y;
+	int	z;
 }				t_mtx;
 
 int				ft_parsing(int fd, t_all *all);
