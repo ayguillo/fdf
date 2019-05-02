@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:25:41 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:45:27 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void			init(t_all *all)
 	all->thetax = 0.0;
 	all->thetay = 0.0;
 	all->thetaz = 0.0;
+	all->color = 0xFFFFFF;
 }
 
 static char		*ft_file(char *name)
@@ -68,9 +69,9 @@ static void		presentation(t_all *all, char *nm)
 			ft_fill_pixel(all, x, y, 0x008080, all->buff);
 	}
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 55, 0xFFFFFF
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 55, 0xFFFFFF
 			, "Press esc to quit");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 100, 0x008080
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 100, 0x008080
 			, "Scroll to zoom/dezoom");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 60, 0x008080
 			, "Q & E : Rotate Z");

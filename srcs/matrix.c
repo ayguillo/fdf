@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:53:40 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:25:42 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 18:27:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_mtx		**fill_real_matrix(int **map, t_all *all)
 			rotatex(&(mtx[y][x].y), &(mtx[y][x].z), all);
 			rotatey(&(mtx[y][x].x), &(mtx[y][x].z), all);
 			rotatez(&(mtx[y][x].x), &(mtx[y][x].y), all);
+			iso(&(mtx[y][x].x), &(mtx[y][x].y), all->map[y][x]);
 		}
 	}
 	return (mtx);
@@ -102,7 +103,7 @@ void		ft_printmtx(t_mtx **mtx, t_all *all)
 	{
 		x = -1;
 		while (++x < all->width)
-			ft_printf("%4i %4i\t", mtx[y][x].x, mtx[y][x].y);
+			ft_printf("%4i %4i %4i\t", mtx[y][x].x, mtx[y][x].y, mtx[y][x].z);
 		ft_putchar('\n');
 	}
 	ft_putchar('\n');
