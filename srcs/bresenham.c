@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/30 18:11:02 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:16:49 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,16 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 {
 	int px;
 	int py;
+	int	plus;
 
 	px = -1;
 	while (++px < x)
-		ft_bresemham(mtx[y][px].x, mtx[y][px].y, mtx[y][px + 1].x,
-				mtx[y][px + 1].y, all);
+		ft_bresemham(mtx[y][px].x + SZI / 2, mtx[y][px].y + SZI / 2,
+				mtx[y][px + 1].x + SZI / 2, mtx[y][px + 1].y + SZI / 2, all);
 	py = -1;
 	while (++py < y)
-		ft_bresemham(mtx[py][x].x, mtx[py][x].y, mtx[py + 1][x].x,
-				mtx[py + 1][x].y, all);
+		ft_bresemham(mtx[py][x].x + SZI / 2, mtx[py][x].y + SZI / 2,
+				mtx[py + 1][x].x + SZI / 2, mtx[py + 1][x].y + SZI / 2, all);
 }
 
 
@@ -72,8 +73,8 @@ void		ft_grid(t_all *all)
 	int		y;
 	t_mtx	**mtx;
 
-	if (all->max != 0)
-		all->distance = SZI / all->max;
+//	if (all->max != 0)
+//		all->distance = SZI / all->max;
 	all->img_ptr2 = mlx_new_image(all->mlx_ptr, SZI, SZI);
 	all->buff2 = mlx_get_data_addr(all->img_ptr2, &(all->bpp),
 			&(all->size_line), &(all->endian));
@@ -83,10 +84,10 @@ void		ft_grid(t_all *all)
 	{
 		while (++x < all->width - 1)
 		{
-			ft_bresemham(mtx[y][x].x, mtx[y][x].y, mtx[y + 1][x].x,
-					mtx[y + 1][x].y, all);
-			ft_bresemham(mtx[y][x].x, mtx[y][x].y, mtx[y][x + 1].x,
-					mtx[y][x + 1].y, all);
+			ft_bresemham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
+					mtx[y + 1][x].x + SZI / 2, mtx[y + 1][x].y + SZI / 2, all);
+			ft_bresemham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
+					mtx[y][x + 1].x + SZI / 2, mtx[y][x + 1].y + SZI / 2, all);
 		}
 	}
 	ft_last(all, mtx, x, y);

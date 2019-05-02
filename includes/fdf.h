@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/30 17:23:41 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:18:34 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ typedef struct s_all
 	void	*img_ptr2;
 	char	*buff;
 	char	*buff2;
-	int		x;
-	int		y;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -68,3 +66,6 @@ t_mtx			**alloc_matrix(int **map, t_all *all);
 t_mtx			**fill_matrix(int **map, t_all *all);
 t_mtx			**fill_real_matrix(int **map, t_all *all);
 void			ft_printmtx(t_mtx **mtx, t_all *all);
+void			rotatex(int *y, int *z, t_all *all);
+void			rotatey(int *x, int *z, t_all *all);
+void			rotatez(int *x, int *y, t_all *all);

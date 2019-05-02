@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/30 18:01:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:25:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static void		presentation(t_all *all, char *nm)
 	all->mlx_ptr = mlx_init();
 	all->win_ptr = mlx_new_window(all->mlx_ptr, 1500, 1500, "fdf");
 	ft_printmap(all->map, all->height, all->width);
-	ft_printf("height = %i & width = %i && depth = %i\n", all->height
-			, all->width, all->depth);
 	all->img_ptr = mlx_new_image(all->mlx_ptr, 1500, 50);
 	all->buff = mlx_get_data_addr(all->img_ptr, &(all->bpp), &(all->size_line),
 			&(all->endian));
@@ -72,6 +70,8 @@ static void		presentation(t_all *all, char *nm)
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 55, 0xFFFFFF
 			, "Press esc to quit");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 0, 100, 0x008080
+			, "Scroll to zoom/dezoom");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 60, 0x008080
 			, "Q & E : Rotate Z");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 80, 0x008080
@@ -102,7 +102,8 @@ int				main(int ac, char **av)
 		return (-1);
 	}
 	presentation(&all, av[1]);
-	all.max = all.height < all.width ? all.width * 2 : all.height * 2;
+	all.max = all.height < all.width ? all.width : all.height;
+	all.distance = SZI / all.max;
 	mlx_mouse_hook(all.win_ptr, ft_zoom, (void*)&all);
 	mlx_key_hook(all.win_ptr, quit, (void *)&all);
 	ft_grid(&all);

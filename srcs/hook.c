@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/04/30 18:01:46 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:25:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@ int				quit(int key, t_all *all)
 int			ft_zoom(int button, int x, int y, t_all *all)
 {
 	if (button == 5)
-		all->max += 1;
+		all->distance -= 1;
 	if (button == 4)
-		all->max -= 1;
-	if (all->max == 1)
-		all->max = -1;
-	if (all->max == -1)
-		all->max = 1;
+		all->distance += 1;
 	ft_grid(all);
 	return (0);
 }
