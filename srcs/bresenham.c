@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 11:57:08 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:35:51 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_bresenham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 	while (1)
 	{
 		if ((ydeb < SZI && xdeb < SZI) && (ydeb >= 0 && xdeb >= 0))
-			ft_fill_pixel(all, xdeb, ydeb, all->color, buff);
+			ft_fill_pixel(all, (int)xdeb, (int)ydeb, all->color, buff);
 		if (ydeb == yfin && xdeb == xfin)
 			break;
 		bre.e2 = bre.err;
@@ -49,7 +49,7 @@ void	ft_bresenham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 
 void		color(int **map, int x, int y, t_all *all)
 {
-	if (all->map[y][x] < 0)
+	if (all->map[y][x] <= 1)
 		all->color = 0x0000FF;
 	else if (all->map[y][x] >= 0 && all->map[y][x] < 10)
 		all->color = 0xFF4901;
@@ -67,15 +67,19 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 	while (++px < x)
 	{
 		color(all->map, px, y, all);
-		ft_bresenham(mtx[y][px].x + SZI / 2, mtx[y][px].y + SZI / 2,
-				mtx[y][px + 1].x + SZI / 2, mtx[y][px + 1].y + SZI / 2, all);
+		ft_bresenham((int)(mtx[y][px].x + SZI / 2),
+				(int)(mtx[y][px].y + SZI / 2),
+				(int)(mtx[y][px + 1].x + SZI / 2),
+				(int)(mtx[y][px + 1].y + SZI / 2), all);
 	}
 	py = -1;
 	while (++py < y)
 	{
 		color(all->map, x, py, all);
-		ft_bresenham(mtx[py][x].x + SZI / 2, mtx[py][x].y + SZI / 2,
-				mtx[py + 1][x].x + SZI / 2, mtx[py + 1][x].y + SZI / 2, all);
+		ft_bresenham((int)(mtx[py][x].x + SZI / 2),
+				(int)(mtx[py][x].y + SZI / 2),
+				(int)(mtx[py + 1][x].x + SZI / 2),
+				(int)(mtx[py + 1][x].y + SZI / 2), all);
 	}
 }
 
@@ -97,10 +101,14 @@ void		ft_grid(t_all *all)
 		while (++x < all->width - 1)
 		{
 			color(all->map, x, y, all);
-			ft_bresenham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
-					mtx[y + 1][x].x + SZI / 2, mtx[y + 1][x].y + SZI / 2, all);
-			ft_bresenham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
-					mtx[y][x + 1].x + SZI / 2, mtx[y][x + 1].y + SZI / 2, all);
+			ft_bresenham((int)(mtx[y][x].x + SZI / 2),
+					(int)(mtx[y][x].y + SZI / 2),
+					(int)(mtx[y + 1][x].x + SZI / 2),
+					(int)(mtx[y + 1][x].y + SZI / 2), all);
+			ft_bresenham((int)(mtx[y][x].x + SZI / 2),
+					(int)(mtx[y][x].y + SZI / 2),
+					(int)(mtx[y][x + 1].x + SZI / 2),
+					(int)(mtx[y][x + 1].y + SZI / 2), all);
 			all->color = 0xFFFFFF;
 		}
 	}

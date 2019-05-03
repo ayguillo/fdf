@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:45:27 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:28:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void			init(t_all *all)
 {
+	all->addz = 1;
+	all->mtx = NULL;
 	all->mlx_ptr = NULL;
 	all->win_ptr = NULL;
 	all->img_ptr = NULL;
@@ -33,8 +35,8 @@ void			init(t_all *all)
 	all->depth = 0;
 	all->map = NULL;
 	all->distance = 0;
-	all->thetax = 0.0;
-	all->thetay = 0.0;
+	all->thetax = -0.523599;
+	all->thetay = -0.523599;
 	all->thetaz = 0.0;
 	all->color = 0xFFFFFF;
 }
@@ -79,6 +81,8 @@ static void		presentation(t_all *all, char *nm)
 			, "W & S : Rotate X");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 100, 0x008080
 			, "A & D : Rotate y");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 120, 0x008080
+			, "+ & - : Change Z");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, ft_file(nm));
 }
 
@@ -102,6 +106,7 @@ int				main(int ac, char **av)
 		ft_printf("Error\n");
 		return (-1);
 	}
+//	ft_printf("width = %i, height = %i, depth = %i\n", all.width, all.height, all.depth);
 	presentation(&all, av[1]);
 	all.max = all.height < all.width ? all.width : all.height;
 	all.distance = SZI / all.max;

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:10:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 18:27:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:27:26 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,20 @@ int		ft_getnbr(char *str)
 	if (count > 0 || countsign > 1)
 		return (0);
 	return (1);
+}
+
+void		ft_printmtx(t_mtx **mtx, t_all *all)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < all->height)
+	{
+		x = -1;
+		while (++x < all->width)
+			ft_printf("%4i %4i %4i\t", mtx[y][x].x, mtx[y][x].y, mtx[y][x].z);
+		ft_putchar('\n');
+	}
+	ft_putchar('\n');
 }

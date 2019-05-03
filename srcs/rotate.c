@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:19:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 16:24:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:07:35 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <math.h>
 #include "../libft/libft.h"
 
-void		rotatex(int *y, int *z, t_all *all)
+void		rotatex(float *y, float *z, t_all *all)
 {
-	int	prevy;
-	int	prevz;
+	float	prevy;
+	float	prevz;
 
 	prevz = *z;
 	prevy = *y;
@@ -25,10 +25,10 @@ void		rotatex(int *y, int *z, t_all *all)
 	*z = -prevy * sin(all->thetax) + prevz * cos(all->thetax);
 }
 
-void		rotatey(int *x, int *z, t_all *all)
+void		rotatey(float *x, float *z, t_all *all)
 {
-	int prevx;
-	int	prevz;
+	float	 prevx;
+	float	prevz;
 
 	prevx = *x;
 	prevz = *z;
@@ -36,13 +36,24 @@ void		rotatey(int *x, int *z, t_all *all)
 	*z = -prevx * sin(all->thetay) + prevz * cos(all->thetay);
 }
 
-void		rotatez(int *x, int *y, t_all *all)
+void		rotatez(float *x, float *y, t_all *all)
 {
-	int prevx;
-	int	prevy;
+	float	prevx;
+	float	prevy;
 
 	prevx = *x;
 	prevy = *y;
 	*x = prevx * cos(all->thetaz) - prevy * sin(all->thetaz);
 	*y = prevx * sin(all->thetaz) + prevy * cos(all->thetaz);
+}
+
+void		iso(float *x, float *y, float z)
+{
+	float	prevx;
+	float	prevy;
+
+	prevx = *x;
+	prevy = *y;
+	*x = ((prevx - prevy) * cos(0.523599));
+	*y = -z + ((prevx + prevy) * sin(0.523599));
 }

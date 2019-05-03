@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 17:41:53 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:20:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int				quit(int key, t_all *all)
 	if (key == 2)
 		all->thetay += 0.087;
 	if (key == 0)
-		all->thetay -= 0.087;
+		all->thetay -= 0.087;	
+	if (key == 78)
+		all->addz -= 0.5;
+	if (key == 69)
+		all->addz += 1.3;
 	ft_grid(all);
 	return (0);
 }
