@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/02 18:49:19 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 11:57:08 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-void	ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
+void	ft_bresenham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 {
 	t_bre	bre;
 	char	*buff;
@@ -29,11 +29,8 @@ void	ft_bresemham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 	bre.err = (bre.dx > bre.dy ? bre.dx : -(bre.dy)) / 2;
 	while (1)
 	{
-		if (ydeb >= SZI || xdeb >= SZI)
-			break;
-		if (ydeb < 0 || xdeb < 0)
-			break;
-		ft_fill_pixel(all, xdeb, ydeb, all->color, buff);
+		if ((ydeb < SZI && xdeb < SZI) && (ydeb >= 0 && xdeb >= 0))
+			ft_fill_pixel(all, xdeb, ydeb, all->color, buff);
 		if (ydeb == yfin && xdeb == xfin)
 			break;
 		bre.e2 = bre.err;
@@ -70,14 +67,14 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 	while (++px < x)
 	{
 		color(all->map, px, y, all);
-		ft_bresemham(mtx[y][px].x + SZI / 2, mtx[y][px].y + SZI / 2,
+		ft_bresenham(mtx[y][px].x + SZI / 2, mtx[y][px].y + SZI / 2,
 				mtx[y][px + 1].x + SZI / 2, mtx[y][px + 1].y + SZI / 2, all);
 	}
 	py = -1;
 	while (++py < y)
 	{
 		color(all->map, x, py, all);
-		ft_bresemham(mtx[py][x].x + SZI / 2, mtx[py][x].y + SZI / 2,
+		ft_bresenham(mtx[py][x].x + SZI / 2, mtx[py][x].y + SZI / 2,
 				mtx[py + 1][x].x + SZI / 2, mtx[py + 1][x].y + SZI / 2, all);
 	}
 }
@@ -92,16 +89,17 @@ void		ft_grid(t_all *all)
 	all->img_ptr2 = mlx_new_image(all->mlx_ptr, SZI, SZI);
 	all->buff2 = mlx_get_data_addr(all->img_ptr2, &(all->bpp),
 			&(all->size_line), &(all->endian));
-	mtx = fill_real_matrix(all->map, all);
+	all->mtx = fill_real_matrix(all->map, all);
+	mtx = all->mtx;
 	y = -1;
 	while (++y < (all->height - 1) && (x = -1))
 	{
 		while (++x < all->width - 1)
 		{
 			color(all->map, x, y, all);
-			ft_bresemham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
+			ft_bresenham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
 					mtx[y + 1][x].x + SZI / 2, mtx[y + 1][x].y + SZI / 2, all);
-			ft_bresemham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
+			ft_bresenham(mtx[y][x].x + SZI / 2, mtx[y][x].y + SZI / 2,
 					mtx[y][x + 1].x + SZI / 2, mtx[y][x + 1].y + SZI / 2, all);
 			all->color = 0xFFFFFF;
 		}
