@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:53:40 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 14:20:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:49:46 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ t_mtx		**fill_matrix(int **map, t_all *all)
 	if (!(mtx = alloc_matrix(map, all)))
 		return (NULL);
 	y = -1;
-	ry = -((all->distance * all->height) / 2);
+	ry = -((all->distance * all->height) / 2) + all->tray;
 	while (++y < all->height)
 	{
 		x = -1;
-		rx = -((all->distance * all->width) / 2);
+		rx = -((all->distance * all->width) / 2) + all->trax;
 		while (++x < all->width)
 		{
 			mtx[y][x].x = rx;
 			mtx[y][x].y = ry;
-			mtx[y][x].z = (float)map[y][x] * (all->addz/* * all->depth*/);
+			mtx[y][x].z = (float)map[y][x] * all->addz;
 			rx += all->distance;
 		}
 		ry += all->distance;

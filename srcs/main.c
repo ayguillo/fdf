@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 14:28:16 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:12:15 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void			init(t_all *all)
 	all->win_ptr = NULL;
 	all->img_ptr = NULL;
 	all->img_ptr2 = NULL;
+	all->img_ptr3 = NULL;
 	all->buff = NULL;
 	all->buff2 = NULL;
+	all->buff3 = NULL;
 	all->bpp = 0;
 	all->size_line = 0;
 	all->endian = 0;
@@ -39,52 +41,10 @@ void			init(t_all *all)
 	all->thetay = -0.523599;
 	all->thetaz = 0.0;
 	all->color = 0xFFFFFF;
+	all->trax = 0;
+	all->tray = 0;
 }
 
-static char		*ft_file(char *name)
-{
-	char	*chr;
-
-	if (!(ft_strchr(name, '/')))
-		chr = name;
-	else
-		chr = ft_strchr(name, '/') + 1;
-	return (chr);
-}
-
-static void		presentation(t_all *all, char *nm)
-{
-	int		x;
-	int		y;
-
-	all->mlx_ptr = mlx_init();
-	all->win_ptr = mlx_new_window(all->mlx_ptr, 1500, 1500, "fdf");
-	ft_printmap(all->map, all->height, all->width);
-	all->img_ptr = mlx_new_image(all->mlx_ptr, 1500, 50);
-	all->buff = mlx_get_data_addr(all->img_ptr, &(all->bpp), &(all->size_line),
-			&(all->endian));
-	y = -1;
-	while (++y <= 49)
-	{
-		x = -1;
-		while (++x <= 1499)
-			ft_fill_pixel(all, x, y, 0x008080, all->buff);
-	}
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 55, 0xFFFFFF
-			, "Press esc to quit");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 100, 0x008080
-			, "Scroll to zoom/dezoom");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 60, 0x008080
-			, "Q & E : Rotate Z");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 80, 0x008080
-			, "W & S : Rotate X");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 100, 0x008080
-			, "A & D : Rotate y");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 120, 0x008080
-			, "+ & - : Change Z");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, ft_file(nm));
-}
 
 int				main(int ac, char **av)
 {
@@ -106,12 +66,12 @@ int				main(int ac, char **av)
 		ft_printf("Error\n");
 		return (-1);
 	}
-//	ft_printf("width = %i, height = %i, depth = %i\n", all.width, all.height, all.depth);
+	ft_printf("width = %i, height = %i, depth = %i\n", all.width, all.height, all.depth);
 	presentation(&all, av[1]);
 	all.max = all.height < all.width ? all.width : all.height;
 	all.distance = SZI / all.max;
 	mlx_mouse_hook(all.win_ptr, ft_zoom, (void*)&all);
-	mlx_key_hook(all.win_ptr, quit, (void *)&all);
+	mlx_key_hook(all.win_ptr, hook, (void *)&all);
 	ft_grid(&all);
 	mlx_loop(all.mlx_ptr);
 }

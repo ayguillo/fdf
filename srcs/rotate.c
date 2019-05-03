@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:19:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 14:07:35 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:48:19 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,4 @@ void		rotatez(float *x, float *y, t_all *all)
 	prevy = *y;
 	*x = prevx * cos(all->thetaz) - prevy * sin(all->thetaz);
 	*y = prevx * sin(all->thetaz) + prevy * cos(all->thetaz);
-}
-
-void		iso(float *x, float *y, float z)
-{
-	float	prevx;
-	float	prevy;
-
-	prevx = *x;
-	prevy = *y;
-	*x = ((prevx - prevy) * cos(0.523599));
-	*y = -z + ((prevx + prevy) * sin(0.523599));
 }

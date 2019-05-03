@@ -6,14 +6,14 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/18 14:35:30 by ayguillo          #+#    #+#              #
-#    Updated: 2019/05/02 14:33:53 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/05/03 17:06:44 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 FLAGS = -Wall -Wextra -Werror
 SRC = srcs/main.c srcs/parsing.c srcs/tools.c srcs/bresenham.c srcs/hook.c \
-	  srcs/matrix.c srcs/rotate.c
+	  srcs/matrix.c srcs/rotate.c srcs/color.c srcs/presentation.c
 LIB = libft/libft.a
 YELLOW = \033[0;33m
 RED = \033[0;31m

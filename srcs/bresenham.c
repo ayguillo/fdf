@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 14:35:51 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:37:48 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,6 @@ void	ft_bresenham(int xdeb, int ydeb, int xfin, int yfin, t_all *all)
 	}
 }
 
-void		color(int **map, int x, int y, t_all *all)
-{
-	if (all->map[y][x] <= 1)
-		all->color = 0x0000FF;
-	else if (all->map[y][x] >= 0 && all->map[y][x] < 10)
-		all->color = 0xFF4901;
-	else
-		all->color = 0xC60800;
-}
-
 void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 {
 	int px;
@@ -66,7 +56,7 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 	px = -1;
 	while (++px < x)
 	{
-		color(all->map, px, y, all);
+		colore(all->map, px, y, all);
 		ft_bresenham((int)(mtx[y][px].x + SZI / 2),
 				(int)(mtx[y][px].y + SZI / 2),
 				(int)(mtx[y][px + 1].x + SZI / 2),
@@ -75,7 +65,7 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 	py = -1;
 	while (++py < y)
 	{
-		color(all->map, x, py, all);
+		colore(all->map, x, py, all);
 		ft_bresenham((int)(mtx[py][x].x + SZI / 2),
 				(int)(mtx[py][x].y + SZI / 2),
 				(int)(mtx[py + 1][x].x + SZI / 2),
@@ -100,7 +90,7 @@ void		ft_grid(t_all *all)
 	{
 		while (++x < all->width - 1)
 		{
-			color(all->map, x, y, all);
+			colore(all->map, x, y, all);
 			ft_bresenham((int)(mtx[y][x].x + SZI / 2),
 					(int)(mtx[y][x].y + SZI / 2),
 					(int)(mtx[y + 1][x].x + SZI / 2),
