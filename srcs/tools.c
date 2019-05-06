@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:10:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 16:14:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:01:56 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_freetab2i(int ***map, int height)
 	*map = NULL;
 }
 
-void	ft_fill_pixel(t_all *all, int x, int y, int color, char *buff)
+void	ft_fill_pixel(t_all *all, int x, int y, char *buff)
 {
 	char	*castcolor;
 	int		bp;
@@ -30,7 +30,7 @@ void	ft_fill_pixel(t_all *all, int x, int y, int color, char *buff)
 
 	bp = ((all->bpp) / 8);
 	size_line = all->size_line;
-	castcolor = (char *)&color;
+	castcolor = (char *)&(all->color);
 	buff[(x * bp) + (y * size_line)] = castcolor[0];
 	buff[(x * bp) + (y * size_line) + 1] = castcolor[1];
 	buff[(x * bp) + (y * size_line) + 2] = castcolor[2];
@@ -74,7 +74,7 @@ int		ft_getnbr(char *str)
 	return (1);
 }
 
-void		ft_printmtx(t_mtx **mtx, t_all *all)
+void	ft_printmtx(t_mtx **mtx, t_all *all)
 {
 	int	y;
 	int	x;

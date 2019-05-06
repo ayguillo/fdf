@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 14:35:48 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:36:20 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ int			ft_parsing(int fd, t_all *all)
 		}
 		if (!(split = ft_strsplit(line, ' ')))
 			return (0);
-		if (!all->width)
-			all->width = ft_raws_nbr(split);
+		all->width = !(all->width) ? ft_raws_nbr(split) : ft_raws_nbr(split);
 		if (ft_raws_nbr(split) != (all->width) || (!(all->map =
 						ft_createmap(all->height, all->width, all, split))))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:04:19 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:39:58 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:05:21 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,19 @@ static void		presentationhud(t_all *all)
 	all->buff3 = mlx_get_data_addr(all->img_ptr3, &(all->bpp),
 			&(all->size_line), &(all->endian));
 	y = -1;
+	all->color = 0xBBBBBB;
 	while (++y < 55)
 	{
 		x = -1;
 		while (++x < 255)
-			ft_fill_pixel(all, x, y, 0xBBBBBB, all->buff3);
+			ft_fill_pixel(all, x, y, all->buff3);
 	}
 	y = -1;
 	while (++y < 190)
 	{
 		x = 1190;
 		while (++x < 1358)
-			ft_fill_pixel(all, x, y, 0xBBBBBB, all->buff3);
+			ft_fill_pixel(all, x, y, all->buff3);
 	}
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr3, 6, 85);
 }
@@ -79,15 +80,15 @@ void			presentation(t_all *all, char *nm)
 	all->buff = mlx_get_data_addr(all->img_ptr, &(all->bpp), &(all->size_line),
 			&(all->endian));
 	y = -1;
+	all->color = 0x008080;
 	while (++y <= 49)
 	{
 		x = -1;
 		while (++x <= 1499)
-			ft_fill_pixel(all, x, y, 0x008080, all->buff);
+			ft_fill_pixel(all, x, y, all->buff);
 	}
 	presentationhud(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img_ptr, 0, 0);
 	presentationstring(all);
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 748, 18, 0xFFFFFF, ft_file(nm));
 }
-

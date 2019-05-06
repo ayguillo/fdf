@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 16:49:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:43:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		hook_rotate(int key, t_all *all)
 	if (key == 2)
 		all->thetay += 0.087;
 	if (key == 0)
-		all->thetay -= 0.087;	
+		all->thetay -= 0.087;
 }
 
 static void		hookz(int key, t_all *all)
@@ -49,7 +49,7 @@ static void		hookz(int key, t_all *all)
 	}
 }
 
-void			hookt(int key, t_all *all)
+static void		hookt(int key, t_all *all)
 {
 	if (key == 123)
 		all->trax -= 10;
@@ -78,7 +78,7 @@ int				hook(int key, t_all *all)
 	return (0);
 }
 
-int			ft_zoom(int button, int x, int y, t_all *all)
+int				ft_zoom(int button, int x, int y, t_all *all)
 {
 	if (button == 5)
 		all->distance -= 1;

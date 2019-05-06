@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:19:57 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 16:48:19 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:44:53 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		rotatex(float *y, float *z, t_all *all)
 
 void		rotatey(float *x, float *z, t_all *all)
 {
-	float	 prevx;
+	float	prevx;
 	float	prevz;
 
 	prevx = *x;

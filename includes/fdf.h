@@ -6,11 +6,12 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:16:55 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:14:05 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define SZI 1200
+#define MID SZI / 2
 
 typedef struct	s_bre
 {
@@ -29,6 +30,13 @@ typedef struct	s_mtx
 	float	z;
 }				t_mtx;
 
+typedef struct	s_points
+{
+	int xdeb;
+	int ydeb;
+	int	xfin;
+	int	yfin;
+}				t_points;
 
 typedef struct s_all
 {
@@ -77,7 +85,7 @@ void			rotatex(float *y, float *z, t_all *all);
 void			rotatey(float *x, float *z, t_all *all);
 void			rotatez(float *x, float *y, t_all *all);
 
-void			ft_fill_pixel(t_all *all, int x, int y, int color, char *buff);
+void			ft_fill_pixel(t_all *all, int x, int y, char *buff);
 void			colore(int **map, int x, int y, t_all *all);
 void			colorm(int **map, int x, int y, t_all *all);
 
