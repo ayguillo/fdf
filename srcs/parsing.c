@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:39:29 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:54:59 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			ft_parsing(int fd, t_all *all)
 	int		ret;
 	char	*line;
 	char	**split;
+	int		rawsnbr;
 
 	line = NULL;
 	split = NULL;
@@ -97,6 +98,7 @@ int			ft_parsing(int fd, t_all *all)
 		if (ft_raws_nbr(split) != (all->width) || (!(all->map =
 						ft_createmap(all->height, all->width, all, split))))
 		{
+			all->height--;
 			ft_freeall(all);
 			ft_free(line, split);
 			return (0);

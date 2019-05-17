@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:10:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:28:48 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:48:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_freetab2i(int ***map, int height)
 	int		i;
 
 	i = -1;
-	while (++i < height)
+	while (++i < height && map[0][i])
 		free(map[0][i]);
 	if (*map)
 		free(*map);
