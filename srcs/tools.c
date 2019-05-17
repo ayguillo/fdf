@@ -6,23 +6,37 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:10:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/06 12:01:56 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:28:48 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include <stdlib.h>
 #include "../includes/fdf.h"
+#include <mlx.h>
 
 void	ft_freetab2i(int ***map, int height)
 {
-	if (!(*map))
-		return ;
-	free(*map);
+	int		i;
+
+	i = -1;
+	while (++i < height)
+		free(map[0][i]);
+	if (*map)
+		free(*map);
 	*map = NULL;
 }
 
-void	ft_fill_pixel(t_all *all, int x, int y, char *buff)
+void	ft_freemtx(t_mtx ***mtx)
+{
+	if (!(*mtx))
+		return ;
+	free(*mtx);
+	free(**mtx);
+	mtx = NULL;
+}
+
+void		ft_fill_pixel(t_all *all, int x, int y, char *buff)
 {
 	char	*castcolor;
 	int		bp;
@@ -37,21 +51,7 @@ void	ft_fill_pixel(t_all *all, int x, int y, char *buff)
 	buff[(x * bp) + (y * size_line) + 3] = castcolor[3];
 }
 
-void	ft_printmap(int **map, int height, int width)
-{
-	int	y;
-	int	x;
 
-	y = -1;
-	while (++y < height)
-	{
-		x = -1;
-		while (++x < width)
-			ft_printf("%2i ", map[y][x]);
-		ft_putchar('\n');
-	}
-	ft_putchar('\n');
-}
 
 int		ft_getnbr(char *str)
 {
@@ -74,18 +74,10 @@ int		ft_getnbr(char *str)
 	return (1);
 }
 
-void	ft_printmtx(t_mtx **mtx, t_all *all)
+void	ft_freeall(t_all *all)
 {
-	int	y;
-	int	x;
-
-	y = -1;
-	while (++y < all->height)
-	{
-		x = -1;
-		while (++x < all->width)
-			ft_printf("%4i %4i %4i\t", mtx[y][x].x, mtx[y][x].y, mtx[y][x].z);
-		ft_putchar('\n');
-	}
-	ft_putchar('\n');
+	if (all->map)
+		ft_freetab2i(&(all->map), all->height);
+	if (all->mtx)
+		ft_freemtx(&(all->mtx));
 }

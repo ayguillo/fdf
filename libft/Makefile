@@ -6,7 +6,7 @@
 #    By: vlambert <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 10:47:24 by vlambert          #+#    #+#              #
-#    Updated: 2019/04/02 11:36:04 by vlambert         ###   ########.fr        #
+#    Updated: 2019/05/17 11:47:57 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC= 	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_printf_nbrfunctions.c ft_printf_otherfunctions.c \
 		ft_printf_specifier.c ft_gnl.c ft_realloc.c ft_strcdup.c ft_strclen.c \
 	    ft_strjoinfree.c ft_read_all.c ft_raws_nbr.c ft_free_tab2d.c \
-		ft_strcpyfast.c
+		ft_strcpyfast.c ft_atol.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -47,14 +47,12 @@ $(NAME): $(OBJ)
 	@ gcc $(FLAGS) -c $<
 	
 clean:
-	@ rm -rf *.o
+	@ rm -rf $(OBJ)
 	@ echo "\033[0;31mSuppression des .o \033[0;33m-> \033[0;32mOK\x1b[0m"
 
 fclean: clean
 	@ rm -rf $(NAME)
 	@ echo "\033[0;31mSuppression de la libft \033[0;33m-> \033[0;32mOK\x1b[0m"
-
-flcean: fclean
 
 re: fclean all
 

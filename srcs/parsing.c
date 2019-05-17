@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/06 10:36:20 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:39:29 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	**ft_allocmap(int **map, int height, int width)
 	y = -1;
 	while (++y < height)
 	{
-		if (!(map[y] = (int*)malloc(sizeof(int) * width)))
+		if (!(map[y] = (int*)malloc(sizeof(int) * width))) 
 		{
 			ft_freetab2i(&map, height);
 			return (NULL);
@@ -46,15 +46,27 @@ static int	**ft_createmap(int height, int width, t_all *all, char **split)
 			while (++x < width)
 				map[y][x] = all->map[y][x];
 	x = -1;
+	if (all->map)
+		ft_freetab2i(&(all->map), height - 1);
 	while (++x < width)
 	{
 		if (!(ft_getnbr(split[x])))
 			return (NULL);
 		map[height - 1][x] = ft_atoi(split[x]);
+		if (map[height - 1][x] > 25000 || map[height - 1][x] < -25000)
+			return (NULL);
 		if (map[height - 1][x] > all->depth)
 			all->depth = map[height - 1][x];
 	}
 	return (map);
+}
+
+static void	ft_free(char *line, char **split)
+{
+	if (line)
+		ft_strdel(&line);
+	if (split)
+		ft_free_tab2d(&split);
 }
 
 int			ft_parsing(int fd, t_all *all)
@@ -64,8 +76,9 @@ int			ft_parsing(int fd, t_all *all)
 	char	**split;
 
 	line = NULL;
-	ret = 1;
 	split = NULL;
+	if (all->map)
+		return (0);
 	while (ret >= 0 && ((ret = ft_gnl(fd, &line)) || ret == 0))
 	{
 		if (ret == 0 && ((all->height)--))
@@ -74,14 +87,24 @@ int			ft_parsing(int fd, t_all *all)
 			return (1);
 		}
 		if (!(split = ft_strsplit(line, ' ')))
+		{
+			ft_freeall(all);
+			ft_strdel(&line);
 			return (0);
-		all->width = !(all->width) ? ft_raws_nbr(split) : ft_raws_nbr(split);
+		}
+		if (all->width == 0)
+			all->width = ft_raws_nbr(split);
 		if (ft_raws_nbr(split) != (all->width) || (!(all->map =
 						ft_createmap(all->height, all->width, all, split))))
+		{
+			ft_freeall(all);
+			ft_free(line, split);
 			return (0);
-		ft_free_tab2d(&split);
+		}
+		ft_free(line, split);
 		(all->height)++;
-		ft_strdel(&line);
 	}
+	ft_freeall(all);
+	ft_free(line, split);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:43:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:15:18 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ static void		hookz(int key, t_all *all)
 	{
 		if (all->depth < 150)
 			all->addz -= 0.8;
-		else
+		else if (all->depth >= 150 && all->depth < 1000)
 			all->addz -= 0.05;
+		else
+			all->addz -= 0.015;
 	}
 	if (key == 69)
 	{
 		if (all->depth < 150)
 			all->addz += 0.8;
-		else
+		else if (all->depth >= 150 && all->depth < 1000)
 			all->addz += 0.05;
+		else
+			all->addz += 0.015;
 	}
 }
 
@@ -65,7 +69,11 @@ int				hook(int key, t_all *all)
 {
 	if (key == 53)
 	{
+		mlx_destroy_image(all->mlx_ptr, all->img_ptr);
+		mlx_destroy_image(all->mlx_ptr, all->img_ptr2);
+		mlx_destroy_image(all->mlx_ptr, all->img_ptr3);
 		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
+		ft_freeall(all);
 		exit(-1);
 	}
 	if (key == 1 || key >= 13 || key == 12 || key == 14 || key == 0 || key == 2)
@@ -74,6 +82,10 @@ int				hook(int key, t_all *all)
 		hookz(key, all);
 	if (key >= 123 && key <= 127)
 		hookt(key, all);
+	if (key == 46)
+		all->choicecolor = 1;
+	if (key == 17)
+		all->choicecolor = 2;
 	ft_grid(all);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:12:15 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:39:29 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,12 @@
 
 void			init(t_all *all)
 {
-	all->addz = 1;
-	all->mtx = NULL;
-	all->mlx_ptr = NULL;
-	all->win_ptr = NULL;
-	all->img_ptr = NULL;
-	all->img_ptr2 = NULL;
-	all->img_ptr3 = NULL;
-	all->buff = NULL;
-	all->buff2 = NULL;
-	all->buff3 = NULL;
-	all->bpp = 0;
-	all->size_line = 0;
-	all->endian = 0;
-	all->fd = 0;
-	all->width = 0;
-	all->height = 1;
-	all->depth = 0;
-	all->map = NULL;
-	all->distance = 0;
+	ft_bzero(all, sizeof(t_all));
 	all->thetax = -0.523599;
+	all->height = 1;
+	all->choicecolor = 2;
 	all->thetay = -0.523599;
-	all->thetaz = 0.0;
 	all->color = 0xFFFFFF;
-	all->trax = 0;
-	all->tray = 0;
 }
 
 
@@ -66,12 +47,26 @@ int				main(int ac, char **av)
 		ft_printf("Error\n");
 		return (-1);
 	}
-	ft_printf("width = %i, height = %i, depth = %i\n", all.width, all.height, all.depth);
+	if (all.width <= 1 || all.height <= 1)
+	{
+		ft_printf("Error, file with less than two lines\n");
+		return (-1);
+	}
+	if (all.depth > 500)
+		all.addz = 0.1;
+	else if (all.depth > 100)
+		all.addz = 0.5;
+	else if (all.depth > 50)
+		all.addz = 1;
+	else
+		all.addz = 10;
 	presentation(&all, av[1]);
 	all.max = all.height < all.width ? all.width : all.height;
-	all.distance = SZI / all.max;
+	all.distance = (!(all.max)) ? SZI : SZI / all.max;
+	all.distance = !all.distance ? 1 : all.distance;
 	mlx_mouse_hook(all.win_ptr, ft_zoom, (void*)&all);
 	mlx_key_hook(all.win_ptr, hook, (void *)&all);
 	ft_grid(&all);
 	mlx_loop(all.mlx_ptr);
+	return (0);
 }

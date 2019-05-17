@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:04:19 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/06 12:05:21 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:51:16 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		presentationstring(t_all *all)
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 85, 0x008080
 			, "Scroll to zoom/dezoom");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 115, 0x800080
-			, "Press arrows to translate");
+			, "Press arrows to move");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 85, 0x008080
 			, "Q & E : Rotate Z");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 115, 0x800080
@@ -56,7 +56,7 @@ static void		presentationhud(t_all *all)
 	while (++y < 55)
 	{
 		x = -1;
-		while (++x < 255)
+		while (++x < 220)
 			ft_fill_pixel(all, x, y, all->buff3);
 	}
 	y = -1;
