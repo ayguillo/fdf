@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:24:07 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:33:04 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void			ft_color(int **map, int x, int y, t_all *all);
 
 int				ft_zoom(int button, int x, int y, t_all *all);
 int				hook(int key, t_all *all);
+
+void			ft_destroy(t_all *all, int err);
 
 void			ft_printmtx(t_mtx **mtx, t_all *all);
 void			ft_printmap(int **map, int height, int width);

@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:39:29 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 16:34:20 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,40 @@ void			init(t_all *all)
 	all->color = 0xFFFFFF;
 }
 
+static int		ft_error(int ac, char **av, t_all *all)
+{
+	if (ac != 2)
+	{
+		ft_printf("Invalid argument number\n");
+		return (-1);
+	}
+	if ((all->fd = open(av[1], O_RDONLY)) == -1)
+	{
+		ft_printf("open() failed\n");
+		return (-1);
+	}
+	if (!(ft_parsing(all->fd, all)))
+	{
+		ft_freeall(all);
+		ft_printf("Error\n");
+		return (-1);
+	}
+	if (all->width <= 1 || all->height <= 1)
+	{
+		ft_freeall(all);
+		ft_printf("Error, file with less than two lines\n");
+		return (-1);
+	}
+	return (1);
+}
 
 int				main(int ac, char **av)
 {
 	t_all	all;
 
 	init(&all);
-	if (ac != 2)
-	{
-		ft_printf("Invalid argument number\n");
+	if (ft_error(ac, av, &all) < 0)
 		return (-1);
-	}
-	if ((all.fd = open(av[1], O_RDONLY)) == -1)
-	{
-		ft_printf("open() failed\n");
-		return (-1);
-	}
-	if (!(ft_parsing(all.fd, &all)))
-	{
-		ft_printf("Error\n");
-		return (-1);
-	}
-	if (all.width <= 1 || all.height <= 1)
-	{
-		ft_printf("Error, file with less than two lines\n");
-		return (-1);
-	}
 	if (all.depth > 500)
 		all.addz = 0.1;
 	else if (all.depth > 100)

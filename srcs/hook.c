@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 16:15:18 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:57:11 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,7 @@ static void		hookt(int key, t_all *all)
 int				hook(int key, t_all *all)
 {
 	if (key == 53)
-	{
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr);
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr2);
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr3);
-		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-		ft_freeall(all);
-		exit(-1);
-	}
+		ft_destroy(all, 0);
 	if (key == 1 || key >= 13 || key == 12 || key == 14 || key == 0 || key == 2)
 		hook_rotate(key, all);
 	if (key == 78 || key == 69)

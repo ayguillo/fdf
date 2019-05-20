@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:04:19 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/06 12:51:16 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 16:34:24 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ static void		presentationstring(t_all *all)
 			, "Scroll to zoom/dezoom");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 115, 0x800080
 			, "Press arrows to move");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 10, 200, 0x800080
+			, "Color mod :");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 30, 220, 0x800080
+			, "Earth : T");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 30, 240, 0x800080
+			, "Mars : M");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 85, 0x008080
 			, "Q & E : Rotate Z");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, 1200, 115, 0x800080
@@ -43,6 +49,27 @@ static void		presentationstring(t_all *all)
 			, "+ & - : Change Z");
 }
 
+static void		encad(t_all *all)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < 55)
+	{
+		x = -1;
+		while (++x < 220)
+			ft_fill_pixel(all, x, y, all->buff3);
+	}
+	y = 115;
+	while (++y < 180)
+	{
+		x = -1;
+		while (++x < 120)
+			ft_fill_pixel(all, x, y, all->buff3);
+	}
+}
+
 static void		presentationhud(t_all *all)
 {
 	int	y;
@@ -51,14 +78,8 @@ static void		presentationhud(t_all *all)
 	all->img_ptr3 = mlx_new_image(all->mlx_ptr, 1358, 190);
 	all->buff3 = mlx_get_data_addr(all->img_ptr3, &(all->bpp),
 			&(all->size_line), &(all->endian));
-	y = -1;
 	all->color = 0xBBBBBB;
-	while (++y < 55)
-	{
-		x = -1;
-		while (++x < 220)
-			ft_fill_pixel(all, x, y, all->buff3);
-	}
+	encad(all);
 	y = -1;
 	while (++y < 190)
 	{

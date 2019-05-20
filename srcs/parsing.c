@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:54:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 16:13:48 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	**ft_allocmap(int **map, int height, int width)
 	y = -1;
 	while (++y < height)
 	{
-		if (!(map[y] = (int*)malloc(sizeof(int) * width))) 
+		if (!(map[y] = (int*)malloc(sizeof(int) * width)))
 		{
 			ft_freetab2i(&map, height);
 			return (NULL);
@@ -69,6 +69,26 @@ static void	ft_free(char *line, char **split)
 		ft_free_tab2d(&split);
 }
 
+static int	ft_raws(char ***split, t_all *all, char **line)
+{
+	if (!(*split = ft_strsplit(*line, ' ')))
+	{
+		ft_strdel(line);
+		return (0);
+	}
+	if (all->width == 0)
+		all->width = ft_raws_nbr(*split);
+	if (ft_raws_nbr(*split) != (all->width)
+			|| (!(all->map = ft_createmap(all->height, all->width
+						, all, *split))))
+	{
+		all->height--;
+		ft_free(*line, *split);
+		return (0);
+	}
+	return (1);
+}
+
 int			ft_parsing(int fd, t_all *all)
 {
 	int		ret;
@@ -87,26 +107,11 @@ int			ft_parsing(int fd, t_all *all)
 			ft_strdel(&line);
 			return (1);
 		}
-		if (!(split = ft_strsplit(line, ' ')))
-		{
-			ft_freeall(all);
-			ft_strdel(&line);
+		if (!(ft_raws(&split, all, &line)))
 			return (0);
-		}
-		if (all->width == 0)
-			all->width = ft_raws_nbr(split);
-		if (ft_raws_nbr(split) != (all->width) || (!(all->map =
-						ft_createmap(all->height, all->width, all, split))))
-		{
-			all->height--;
-			ft_freeall(all);
-			ft_free(line, split);
-			return (0);
-		}
 		ft_free(line, split);
 		(all->height)++;
 	}
-	ft_freeall(all);
 	ft_free(line, split);
 	return (0);
 }

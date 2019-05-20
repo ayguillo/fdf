@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:10:21 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 17:48:54 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:11:58 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
-void	ft_freetab2i(int ***map, int height)
+void		ft_freetab2i(int ***map, int height)
 {
 	int		i;
 
@@ -27,7 +27,7 @@ void	ft_freetab2i(int ***map, int height)
 	*map = NULL;
 }
 
-void	ft_freemtx(t_mtx ***mtx)
+void		ft_freemtx(t_mtx ***mtx)
 {
 	if (!(*mtx))
 		return ;
@@ -51,9 +51,7 @@ void		ft_fill_pixel(t_all *all, int x, int y, char *buff)
 	buff[(x * bp) + (y * size_line) + 3] = castcolor[3];
 }
 
-
-
-int		ft_getnbr(char *str)
+int			ft_getnbr(char *str)
 {
 	int		i;
 	int		countsign;
@@ -74,7 +72,7 @@ int		ft_getnbr(char *str)
 	return (1);
 }
 
-void	ft_freeall(t_all *all)
+void		ft_freeall(t_all *all)
 {
 	if (all->map)
 		ft_freetab2i(&(all->map), all->height);

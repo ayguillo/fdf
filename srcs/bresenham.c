@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:37:27 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 16:29:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:57:12 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@
 #include <mlx.h>
 #include <stdlib.h>
 
+static void	ft_init(t_points point, t_bre *bre)
+{
+	bre->dx = abs(point.xfin - point.xdeb);
+	bre->sx = point.xdeb < point.xfin ? 1 : -1;
+	bre->dy = abs(point.yfin - point.ydeb);
+	bre->sy = point.ydeb < point.yfin ? 1 : -1;
+	bre->err = (bre->dx > bre->dy ? bre->dx : -(bre->dy)) / 2;
+}
+
 void		ft_bresenham(t_points point, t_all *all)
 {
 	t_bre	bre;
 	char	*buff;
 
 	buff = all->buff2;
-	bre.dx = abs(point.xfin - point.xdeb);
-	bre.sx = point.xdeb < point.xfin ? 1 : -1;
-	bre.dy = abs(point.yfin - point.ydeb);
-	bre.sy = point.ydeb < point.yfin ? 1 : -1;
-	bre.err = (bre.dx > bre.dy ? bre.dx : -(bre.dy)) / 2;
+	ft_init(point, &bre);
 	while (1)
 	{
 		if ((point.ydeb < SZI && point.xdeb < SZI) && (point.ydeb >= 0
@@ -76,6 +81,14 @@ void		ft_last(t_all *all, t_mtx **mtx, int x, int y)
 	}
 }
 
+static void	ft_realpoint(t_all *all, t_points *point, int x, int y)
+{
+	point->xdeb = (int)(all->mtx[y][x].x + MID);
+	point->ydeb = (int)(all->mtx[y][x].y + MID);
+	point->xfin = (int)(all->mtx[y + 1][x].x + MID);
+	point->yfin = (int)(all->mtx[y + 1][x].y + MID);
+}
+
 void		ft_grid(t_all *all)
 {
 	int			x;
@@ -86,29 +99,20 @@ void		ft_grid(t_all *all)
 	all->buff2 = mlx_get_data_addr(all->img_ptr2, &(all->bpp),
 			&(all->size_line), &(all->endian));
 	if (!(fill_real_matrix(all->map, all)))
-	{
-		ft_printf("Error\n");
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr);
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr2);
-		mlx_destroy_image(all->mlx_ptr, all->img_ptr3);
-		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-		ft_freeall(all);
-		exit(-1);
-	}
+		ft_destroy(all, 1);
 	y = -1;
 	while (++y < (all->height - 1) && (x = -1))
+	{
 		while (++x < all->width - 1)
 		{
 			ft_color(all->map, x, y, all);
-			point.xdeb = (int)(all->mtx[y][x].x + MID);
-			point.ydeb = (int)(all->mtx[y][x].y + MID);
-			point.xfin = (int)(all->mtx[y + 1][x].x + MID);
-			point.yfin = (int)(all->mtx[y + 1][x].y + MID);
+			ft_realpoint(all, &point, x, y);
 			ft_bresenham(point, all);
 			point.xfin = (int)(all->mtx[y][x + 1].x + MID);
 			point.yfin = (int)(all->mtx[y][x + 1].y + MID);
 			ft_bresenham(point, all);
 		}
+	}
 	ft_last(all, all->mtx, x, y);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr,
 			all->img_ptr2, 200, 200);
