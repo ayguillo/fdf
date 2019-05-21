@@ -6,7 +6,7 @@
 #    By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/18 14:35:30 by ayguillo          #+#    #+#              #
-#    Updated: 2019/05/21 11:34:30 by ayguillo         ###   ########.fr        #
+#    Updated: 2019/05/21 11:52:10 by ayguillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ all : $(NAME)
 
 $(NAME) : $(LIB) $(OBJ)
 	@ echo "$(YELLOW)Compilation de $(NAME). . .$(WHITE)"
-	@ gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
+	@ gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) -I /usr/local/include \
+		-L /usr/local/lib -lmlx -framework OpenGL -framework Appkit
 	@ echo "$(GREEN)$(NAME) compilé$(WHITE)"
 
 $.o : %.c lemin.h
