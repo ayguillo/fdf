@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 13:42:17 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/20 15:09:59 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:38:52 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	colorexl(int **map, int x, int y, t_all *all)
 {
-	if (all->map[y][x] <= -30)
+	if (map[y][x] <= -30)
 		all->color = 0x03224C;
-	else if (all->map[y][x] <= 0)
+	else if (map[y][x] <= 0)
 		all->color = 0x0000FF;
-	else if (all->map[y][x] < 6)
+	else if (map[y][x] < 6)
 		all->color = 0xE0CDA9;
-	else if (all->map[y][x] < 260)
+	else if (map[y][x] < 260)
 		all->color = 0x3A9D23;
-	else if (all->map[y][x] < 600)
+	else if (map[y][x] < 600)
 		all->color = 0x582900;
-	else if (all->map[y][x] < 1400)
+	else if (map[y][x] < 1400)
 		all->color = 0x808080;
 	else
 		all->color = 0xFFFFFF;
@@ -32,17 +32,17 @@ static void	colorexl(int **map, int x, int y, t_all *all)
 
 static void	colorel(int **map, int x, int y, t_all *all)
 {
-	if (all->map[y][x] <= -15)
+	if (map[y][x] <= -15)
 		all->color = 0x03224C;
-	else if (all->map[y][x] <= 0)
+	else if (map[y][x] <= 0)
 		all->color = 0x0000FF;
-	else if (all->map[y][x] < 3)
+	else if (map[y][x] < 3)
 		all->color = 0xE0CDA9;
-	else if (all->map[y][x] < 130)
+	else if (map[y][x] < 130)
 		all->color = 0x3A9D23;
-	else if (all->map[y][x] < 300)
+	else if (map[y][x] < 300)
 		all->color = 0x582900;
-	else if (all->map[y][x] < 680)
+	else if (map[y][x] < 680)
 		all->color = 0x808080;
 	else
 		all->color = 0xFFFFFF;
@@ -56,17 +56,17 @@ void		colore(int **map, int x, int y, t_all *all)
 		colorel(map, x, y, all);
 	else
 	{
-		if (all->map[y][x] <= -7)
+		if (map[y][x] <= -7)
 			all->color = 0x03224C;
-		else if (all->map[y][x] <= 0)
+		else if (map[y][x] <= 0)
 			all->color = 0x0000FF;
-		else if (all->map[y][x] < 2)
+		else if (map[y][x] < 2)
 			all->color = 0xE0CDA9;
-		else if (all->map[y][x] < 70)
+		else if (map[y][x] < 70)
 			all->color = 0x3A9D23;
-		else if (all->map[y][x] < 150)
+		else if (map[y][x] < 150)
 			all->color = 0x582900;
-		else if (all->map[y][x] < 350)
+		else if (map[y][x] < 350)
 			all->color = 0x808080;
 		else
 			all->color = 0xFFFFFF;

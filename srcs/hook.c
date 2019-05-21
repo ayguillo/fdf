@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/20 15:57:11 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:36:09 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int				hook(int key, t_all *all)
 
 int				ft_zoom(int button, int x, int y, t_all *all)
 {
+	x = 1;
+	y = 1;
 	if (button == 5)
 		all->distance -= 1;
 	if (button == 4)

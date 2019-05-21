@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   checknbr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 15:30:12 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/21 11:34:11 by ayguillo         ###   ########.fr       */
+/*   Created: 2019/05/20 20:11:43 by ayguillo          #+#    #+#             */
+/*   Updated: 2019/05/21 09:55:41 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../includes/fdf.h"
-#include <mlx.h>
-#include <stdlib.h>
+#include "../libft/libft.h"
 
-void	ft_destroy(t_all *all, int err)
+int		ft_checknbr(int x, t_all *all, char **split, int **map)
 {
-	if (err == 1)
-		ft_printf("Error\n");
-	mlx_destroy_image(all->mlx_ptr, all->img_ptr);
-	mlx_destroy_image(all->mlx_ptr, all->img_ptr2);
-	mlx_destroy_image(all->mlx_ptr, all->img_ptr3);
-	mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-	ft_freeall(all);
-	exit(-1);
+	if (!(ft_getnbr(split[x])))
+		return (0);
+	map[(all->height) - 1][x] = ft_atoi(split[x]);
+	if (map[(all->height) - 1][x] > 25000
+			|| map[(all->height) - 1][x] < -25000)
+		return (0);
+	if (map[(all->height) - 1][x] > all->depth)
+		all->depth = map[(all->height) - 1][x];
+	return (1);
 }

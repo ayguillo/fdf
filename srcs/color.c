@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 15:00:49 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 11:40:42 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:37:54 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void		colorm(int **map, int x, int y, t_all *all)
 {
-	if (all->map[y][x] < 0)
+	if (map[y][x] < 0)
 		all->color = 0x8B0000;
-	else if (all->map[y][x] < 10)
+	else if (map[y][x] < 10)
 		all->color = 0xFF4901;
 	else
 		all->color = 0xC60800;

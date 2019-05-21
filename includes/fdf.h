@@ -6,12 +6,15 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/20 15:33:04 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:46:26 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define SZI 1200
-#define MID SZI / 2
+#ifndef FDF_H
+# define FDF_H
+
+# define SZI 1200
+# define MID SZI / 2
 
 typedef struct	s_bre
 {
@@ -38,7 +41,7 @@ typedef struct	s_points
 	int	yfin;
 }				t_points;
 
-typedef struct s_all
+typedef struct	s_all
 {
 	t_mtx	**mtx;
 	void	*mlx_ptr;
@@ -73,11 +76,11 @@ void			presentation(t_all *all, char *nm);
 
 int				ft_parsing(int fd, t_all *all);
 void			ft_freeall(t_all *all);
-void			ft_freemtx(t_mtx ***mtx);
 void			ft_freetab2i(int ***map, int height);
 int				ft_getnbr(char *str);
 void			ft_bresemham(t_points point, t_all *all);
 void			ft_grid(t_all *all);
+int				ft_checknbr(int x, t_all *all, char **split, int **map);
 
 int				fill_matrix(int **map, t_all *all);
 int				fill_real_matrix(int **map, t_all *all);
@@ -98,3 +101,5 @@ void			ft_destroy(t_all *all, int err);
 
 void			ft_printmtx(t_mtx **mtx, t_all *all);
 void			ft_printmap(int **map, int height, int width);
+
+#endif

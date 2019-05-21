@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 09:53:40 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/17 16:58:45 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:37:18 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <math.h>
 #include "../libft/libft.h"
 
-static int	alloc_matrix(int **map, t_all *all)
+static int	alloc_matrix(t_all *all)
 {
 	int		y;
 
@@ -38,7 +38,7 @@ int			fill_matrix(int **map, t_all *all)
 	float	ry;
 
 	if (!(all->mtx))
-		if (!(alloc_matrix(map, all)))
+		if (!(alloc_matrix(all)))
 			return (0);
 	y = -1;
 	ry = -((all->distance * all->height) / 2) + all->tray;

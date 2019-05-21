@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:10:28 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/20 16:13:48 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:35:47 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int	**ft_createmap(int height, int width, t_all *all, char **split)
 	int	x;
 	int	y;
 	int	**map;
-	int	depth;
 
+	map = NULL;
 	if (!(map = ft_allocmap(map, height, width)))
 		return (NULL);
 	if (map != NULL && (y = -1))
@@ -50,13 +50,11 @@ static int	**ft_createmap(int height, int width, t_all *all, char **split)
 		ft_freetab2i(&(all->map), height - 1);
 	while (++x < width)
 	{
-		if (!(ft_getnbr(split[x])))
+		if (!(ft_checknbr(x, all, split, map)))
+		{
+			ft_freetab2i(&map, all->height);
 			return (NULL);
-		map[height - 1][x] = ft_atoi(split[x]);
-		if (map[height - 1][x] > 25000 || map[height - 1][x] < -25000)
-			return (NULL);
-		if (map[height - 1][x] > all->depth)
-			all->depth = map[height - 1][x];
+		}
 	}
 	return (map);
 }
@@ -94,12 +92,12 @@ int			ft_parsing(int fd, t_all *all)
 	int		ret;
 	char	*line;
 	char	**split;
-	int		rawsnbr;
 
-	line = NULL;
-	split = NULL;
 	if (all->map)
 		return (0);
+	line = NULL;
+	split = NULL;
+	ret = 0;
 	while (ret >= 0 && ((ret = ft_gnl(fd, &line)) || ret == 0))
 	{
 		if (ret == 0 && ((all->height)--))
