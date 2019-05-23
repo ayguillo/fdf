@@ -6,7 +6,7 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 14:56:01 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/21 11:46:26 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:11:06 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ typedef struct	s_points
 typedef struct	s_all
 {
 	t_mtx	**mtx;
+	int		**map;
+	char	*buff;
+	char	*buff2;
+	char	*buff3;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	void	*img_ptr2;
 	void	*img_ptr3;
-	char	*buff;
-	char	*buff2;
-	char	*buff3;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -60,16 +61,16 @@ typedef struct	s_all
 	int		width;
 	int		height;
 	int		depth;
-	int		**map;
 	int		trax;
 	int		tray;
 	int		choicecolor;
-	float	distance;
 	int		max;
+	float	distance;
 	float	thetax;
 	float	thetay;
 	float	thetaz;
 	float	addz;
+	char	padding[sizeof(int)];
 }				t_all;
 
 void			presentation(t_all *all, char *nm);

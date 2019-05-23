@@ -6,12 +6,11 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 12:21:41 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/21 11:16:53 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:31:21 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include <stdlib.h>
 #include "../includes/fdf.h"
 #include "../libft/libft.h"
 #include <fcntl.h>

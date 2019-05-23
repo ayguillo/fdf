@@ -6,14 +6,11 @@
 /*   By: ayguillo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 13:50:08 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/05/21 11:36:09 by ayguillo         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:31:02 by ayguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "../includes/fdf.h"
-#include <stdlib.h>
-#include "../libft/libft.h"
 
 static void		hook_rotate(int key, t_all *all)
 {
